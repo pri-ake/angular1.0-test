@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+<head>
+  <meta charset="utf-8">
+  <title>Angular</title>
+  <script src="js/angular-1.0.1.min.js"></script>
+  <script src="js/myscript.js"></script>
+  <style>
+    .even {
+      background: skyblue;
+    }
+    .odd {
+      background: yellowgreen;
+  }
+  </style>
+</head>
+<body>
+  <h1>Hello, Angular!</h1>
+
+  <div ng-controller="mainCtrl">
+    <p>{{users.length}} users.</p>
+
+    <p>{{25 * 500 | number}}</p>
+    <p>{{25 * 500 | currency:"\\"}}</p>
+    <p>{{today | date:'yyyy年MM月dd日'}}</p>
+
+    <input type="text" ng-model="query.name">
+
+    <ul>
+      <li ng-repeat="user in users | filter:query"
+        ng-class-even="'even'"
+        ng-class-odd="'odd'"
+        ng-controller="userItemCtrl">
+
+      <!-- <li ng-repeat="user in users | orderBy:'-score'"> -->
+      <!-- <li ng-repeat="user in users | orderBy:'-score' | limitTo:3"> -->
+        {{$index+1}} {{$first}} {{$middle}} {{$last}} {{user.name | uppercase}} {{user.score | number:4}}
+        <button ng-click="increment()">+1</button>
+        <button ng-click="decrement()">-1</button>
+      </li>
+    </ul>
+  </div>
+
+<!--   <input type="text" ng-model="name">
+  <p>Hello, {{name}}</p> -->
+</body>
+</html>
