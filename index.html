@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja" ng-app>
+<html lang="ja" ng-app="myApp">
 <head>
   <meta charset="utf-8">
   <title>Angular</title>
-  <script src="js/angular-1.0.1.min.js"></script>
+  <script src="js/angular.min.js"></script>
   <script src="js/myscript.js"></script>
   <style>
     .even {
@@ -11,14 +11,68 @@
     }
     .odd {
       background: yellowgreen;
-  }
+    }
   </style>
 </head>
 <body>
   <h1>Hello, Angular!</h1>
 
   <div ng-controller="mainCtrl">
-    <p>{{users.length}} users.</p>
+    <form novalidate name="myForm" ng-submit="addUser()">
+      <p>Name:
+        <input type="text" name="name" ng-model="user.name"
+          required
+          ng-minlength:"5"
+          ng-maxlength:"8">
+        <span ng-show="myForm.name.$error.required">Required!</span>
+        <span ng-show="myForm.name.$error.minlength">Too short!!</span>
+        <span ng-show="myForm.name.$error.maxlength">Too long!!</span>
+      </p>
+      <p>Score:
+        <input type="number" name="score" ng-model="user.score">
+      </p>
+      <p>Email:
+        <input type="email" name="email" ng-model="user.email">
+        <span ng-show="myForm.email.$error.email">Not valid Email!!</span>
+      </p>
+      <p>Web:
+        <input type="url" name="url" ng-model="user.url">
+        <span ng-show="myForm.url.$error.url">Not valid url!!</span>
+      </p>
+
+      <p>18+<input type="checkbox" ng-model="user.adult"
+                    ng-true-value="'adult'"
+                    ng-false-value="'child'"></p>
+
+      <p>Phone:
+        <input type="radio" ng-model="user.phone" value="iPhone">iPhone
+        <input type="radio" ng-model="user.phone" value="Android">Android
+      </p>
+
+      <p>
+        <textarea name="memo" ng-model="user.memo"
+                  ng-maxlength="50"></textarea>
+        <span ng-hide="myForm.memo.$error.maxlength">
+          残り {{50 - user.memo.length}} 文字
+        </span>
+        <span ng-show="myForm.memo.$error.maxlength">
+          文字数オーバーです。
+        </span>
+      </p>
+
+      <p>
+      Color:
+        <select ng-model="user.color"
+                ng-options="'label:'+color+'色' for color in colors"
+                ng-init="user.color='red'">
+        </select>
+      </p>
+
+      <p><input type="submit" value="add"></p>
+    </form>
+
+  <pre>{{user | json}}</pre>
+<!--     <p>{{users.length}} users.</p>
 
     <p>{{25 * 500 | number}}</p>
     <p>{{25 * 500 | currency:"\\"}}</p>
@@ -30,15 +84,15 @@
       <li ng-repeat="user in users | filter:query"
         ng-class-even="'even'"
         ng-class-odd="'odd'"
-        ng-controller="userItemCtrl">
+        ng-contro ller="userItemCtrl">-->
 
       <!-- <li ng-repeat="user in users | orderBy:'-score'"> -->
       <!-- <li ng-repeat="user in users | orderBy:'-score' | limitTo:3"> -->
-        {{$index+1}} {{$first}} {{$middle}} {{$last}} {{user.name | uppercase}} {{user.score | number:4}}
-        <button ng-click="increment()">+1</button>
+<!--         {{$index+1}} {{$first}} {{$middle}} {{$last}} {{user.name | uppercase}} {{user.score | number:4}}
+<!--         <button ng-click="increment()">+1</button>
         <button ng-click="decrement()">-1</button>
       </li>
-    </ul>
+    </ul> -->
   </div>
 
 <!--   <input type="text" ng-model="name">
